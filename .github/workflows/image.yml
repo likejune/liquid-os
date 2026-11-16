@@ -4,11 +4,26 @@ on:
   push:
     tags: ['v*']
 jobs:
+  kernel:
+    uses: ./.github/workflows/kernel.yml
+  desktop:
+    uses: ./.github/workflows/desktop.yml
   build:
+    needs: [kernel, desktop]
     runs-on: ubuntu-24.04
-    timeout-minutes: 120
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
+      - name: Download Liquid kernel
+        uses: actions/download-artifact@v4
+        with:
+          name: liquid-kernel
+          path: mkosi.packages
+      - name: Download Liquid desktop
+        uses: actions/download-artifact@v4
+        with:
+          name: liquid-desktop
+          path: mkosi.extra/usr
       - uses: systemd/mkosi@v25.3
       - name: Free disk space
         run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
@@ -19,8 +34,9 @@ jobs:
           export FLATHUB_GPG_KEY=$(curl -fsSL https://dl.flathub.org/repo/flathub.gpg | base64 -w0)
           mkosi -f build --environment=FLATHUB_GPG_KEY --environment=LIQUID_UPDATE_URL
       - name: Boot test in QEMU
-        run: timeout 600 mkosi qemu -- -nographic < /dev/null | tee boot.log || true
+        run: bash scripts/test-image.sh
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: liquid-os-image
           path: |

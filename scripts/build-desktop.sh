@@ -14,4 +14,6 @@ for dir in "$ROOT"/third_party/*/; do
     (cd "$dir" && cargo build --release)
   fi
 done
+echo ">> building Liquid Rust workspace"
+(cd "$ROOT" && cargo build --workspace --release)
 # Liquid design: theme, icons, wallpapers are already in mkosi.extra/usr/share
