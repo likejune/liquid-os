@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Liquid OS
+Description=Liquid OS boot splash: glass sphere logo on the ice-white base
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/liquid
+ScriptFile=/usr/share/plymouth/themes/liquid/liquid.script

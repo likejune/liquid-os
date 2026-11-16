@@ -1,0 +1,8 @@
+[Sound Theme]
+Name=Liquid
+Comment=Liquid OS system sounds
+Inherits=freedesktop
+Directories=stereo
+
+[stereo]
+OutputProfile=stereo

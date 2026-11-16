@@ -1,0 +1,12 @@
+[package]
+name = "liquid-installer"
+description = "Liquid OS installer and first-run flow (1000073167_optimized.png)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+liquid-design = { path = "../liquid-design" }

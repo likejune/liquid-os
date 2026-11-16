@@ -1,0 +1,16 @@
+# Ready-made desktop components (Rust, Smithay, iced/libcosmic, GPL-3.0),
+# restyled to the Liquid OS design. Pinned tags; sha verified 15.11.2026.
+# repo                      tag              commit
+pop-os/cosmic-comp          epoch-1.11.0     8cb1802caada438bb5cc7670dfabdaca5fad0502
+pop-os/cosmic-panel         epoch-1.11.0     ca20ce3185b3b4404f429d59d429c40b58a2ddef
+pop-os/cosmic-launcher      epoch-1.11.0     b6c2ed7d1224a94568b083162ea6b79409ef111b
+pop-os/cosmic-files         epoch-1.11.0     3cc4b8003e8d08349c7ced8a9cdd10cdfa45d38c
+pop-os/cosmic-settings      epoch-1.11.0     f1d00fc06e18203e880771617657067c10c43321
+pop-os/cosmic-greeter       epoch-1.11.0     80e8a104b75a01ab8df52bca7b8bde6dbcdb8133
+# Not yet verified (fetch script fails loudly if the tag is missing):
+pop-os/cosmic-session       epoch-1.11.0     -
+pop-os/cosmic-settings-daemon epoch-1.11.0   -
+pop-os/cosmic-notifications epoch-1.11.0     -
+pop-os/cosmic-osd           epoch-1.11.0     -
+pop-os/cosmic-bg            epoch-1.11.0     -
+pop-os/xdg-desktop-portal-cosmic epoch-1.11.0 -

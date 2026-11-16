@@ -1,0 +1,3 @@
+#!/bin/sh
+# Called from mkosi.postinst.chroot
+plymouth-set-default-theme liquid 2>/dev/null || true

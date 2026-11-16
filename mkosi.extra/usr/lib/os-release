@@ -1,0 +1,10 @@
+NAME="Liquid OS"
+PRETTY_NAME="Liquid OS 0.9.1 (pre-alpha)"
+ID=liquid
+ID_LIKE=
+VERSION="0.9.1 (pre-alpha)"
+VERSION_ID=0.9.1
+IMAGE_ID=liquid-os
+IMAGE_VERSION=0.9.1
+HOME_URL="https://github.com/likejune/liquid-os"
+LOGO=liquid-os

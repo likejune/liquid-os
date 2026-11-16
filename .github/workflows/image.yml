@@ -1,0 +1,30 @@
+name: image
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: systemd/mkosi@v25.3
+      - name: Free disk space
+        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+      - name: Build image
+        env:
+          LIQUID_UPDATE_URL: ${{ vars.LIQUID_UPDATE_URL }}
+        run: |
+          export FLATHUB_GPG_KEY=$(curl -fsSL https://dl.flathub.org/repo/flathub.gpg | base64 -w0)
+          mkosi -f build --environment=FLATHUB_GPG_KEY --environment=LIQUID_UPDATE_URL
+      - name: Boot test in QEMU
+        run: timeout 600 mkosi qemu -- -nographic < /dev/null | tee boot.log || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: liquid-os-image
+          path: |
+            mkosi.output/*.raw
+            mkosi.output/*.efi
+            boot.log
+          if-no-files-found: warn

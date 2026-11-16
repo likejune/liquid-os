@@ -1,0 +1,30 @@
+# Liquid OS boot splash (Plymouth script plugin)
+Window.SetBackgroundTopColor(0.957, 0.965, 0.988);    # #F4F6FC
+Window.SetBackgroundBottomColor(0.910, 0.929, 0.984); # #E8EDFB
+
+logo.image = Image("logo.png");
+logo.sprite = Sprite(logo.image);
+logo.x = Window.GetX() + Window.GetWidth() / 2 - logo.image.GetWidth() / 2;
+logo.y = Window.GetY() + Window.GetHeight() / 2 - logo.image.GetHeight() / 2 - 40;
+logo.sprite.SetPosition(logo.x, logo.y, 0);
+
+# Soft breathing animation of the sphere
+t = 0;
+fun refresh_callback () {
+  t++;
+  logo.sprite.SetOpacity(0.85 + 0.15 * Math.Sin(t / 20));
+}
+Plymouth.SetRefreshFunction(refresh_callback);
+
+# Password prompt for encrypted data partition
+fun display_password_callback (prompt, bullets) {
+  msg.image = Image.Text(prompt, 0.118, 0.161, 0.231);
+  msg.sprite = Sprite(msg.image);
+  msg.sprite.SetPosition(Window.GetWidth() / 2 - msg.image.GetWidth() / 2, logo.y + 300, 1);
+  s = "";
+  for (i = 0; i < bullets; i++) s += "●";
+  b.image = Image.Text(s, 0.231, 0.510, 0.965);
+  b.sprite = Sprite(b.image);
+  b.sprite.SetPosition(Window.GetWidth() / 2 - b.image.GetWidth() / 2, logo.y + 330, 1);
+}
+Plymouth.SetDisplayPasswordFunction(display_password_callback);

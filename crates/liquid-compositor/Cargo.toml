@@ -1,0 +1,15 @@
+[package]
+name = "liquid-compositor"
+description = "Liquid OS Wayland compositor: shell layout, window decorations, Liquid Glass effects"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+liquid-design = { path = "../liquid-design" }
+liquid-ui = { path = "../liquid-ui" }
+# Wayland backend (Smithay) is added in the next step together with
+# src/backend/; see crates/liquid-compositor/README.md.

@@ -1,0 +1,15 @@
+[Transfer]
+ProtectVersion=%A
+
+[Source]
+Type=url-file
+Path=@LIQUID_UPDATE_URL@
+MatchPattern=liquid-os_@v.usr-x86-64-verity.@u.raw
+
+[Target]
+Type=partition
+Path=auto
+MatchPattern=liquid_usr_verity_@v
+MatchPartitionType=usr-verity
+PartitionFlags=0
+ReadOnly=1

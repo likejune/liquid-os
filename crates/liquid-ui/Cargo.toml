@@ -1,0 +1,12 @@
+[package]
+name = "liquid-ui"
+description = "Liquid OS component styles and geometry, toolkit-agnostic (adapters for iced live in liquid-ui-iced)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+liquid-design = { path = "../liquid-design" }

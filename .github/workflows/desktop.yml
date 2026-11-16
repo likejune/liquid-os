@@ -1,0 +1,20 @@
+name: desktop
+# Build restyled desktop components (compositor, panel, launcher, Finder,
+# Settings, greeter) on Fedora, the same base as the image.
+on:
+  workflow_dispatch:
+  push:
+    paths: ['upstream.lock', 'patches/**', 'scripts/*desktop*', 'scripts/fetch-upstream.sh']
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    container: registry.fedoraproject.org/fedora:44
+    timeout-minutes: 180
+    steps:
+      - run: dnf -y install git rust cargo just clang mesa-libgbm-devel libinput-devel libxkbcommon-devel systemd-devel libseat-devel pipewire-devel pulseaudio-libs-devel wayland-devel libdisplay-info-devel pixman-devel expat-devel fontconfig-devel freetype-devel pam-devel dbus-devel openssl-devel gettext
+      - uses: actions/checkout@v4
+      - run: bash scripts/build-desktop.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: liquid-desktop
+          path: mkosi.extra/usr

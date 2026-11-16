@@ -1,0 +1,11 @@
+[package]
+name = "liquid-notes"
+description = "Notes app model (1000073176)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]

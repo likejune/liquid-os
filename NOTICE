@@ -1,0 +1,12 @@
+Liquid OS
+Copyright 2026 Liquid OS contributors
+
+Own source code of Liquid OS is licensed under the Apache License 2.0.
+The names "Liquid OS", the Liquid OS logo and wallpapers are not covered by
+the license.
+
+The system image also contains third-party components under their own
+licenses: Linux kernel (GPL-2.0), systemd (LGPL-2.1+), glibc (LGPL-2.1+),
+Mesa (MIT), PipeWire (MIT), NetworkManager (GPL-2.0+), BlueZ (GPL-2.0+),
+Flatpak (LGPL-2.1+), Inter font (OFL-1.1), Smithay (MIT), iced (MIT),
+NVIDIA driver (NVIDIA proprietary license) and others.

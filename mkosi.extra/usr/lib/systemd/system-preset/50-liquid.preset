@@ -1,0 +1,8 @@
+enable NetworkManager.service
+enable bluetooth.service
+enable systemd-resolved.service
+enable power-profiles-daemon.service
+enable systemd-sysupdate.timer
+enable systemd-boot-update.service
+enable systemd-bless-boot.service
+disable sshd.service

@@ -1,0 +1,23 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/liquid-design",
+    "crates/liquid-ui",
+    "crates/liquid-compositor",
+    "crates/liquid-shell",
+    "crates/liquid-installer",
+    "crates/liquid-format",
+    "crates/liquid-finder",
+    "crates/liquid-notes",
+    "crates/liquid-sysinfo",
+    "crates/liquid-update",
+    "crates/liquid-settings",
+]
+
+[workspace.package]
+version = "0.9.1"
+edition = "2021"
+rust-version = "1.82"
+license = "Apache-2.0"
+repository = "https://github.com/likejune/liquid-os"
+authors = ["Liquid OS contributors"]

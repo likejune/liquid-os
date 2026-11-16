@@ -1,0 +1,14 @@
+#!/bin/sh
+# Runs inside the image after packages are installed.
+set -e
+# Brand: remove distribution branding from the user-visible system.
+rm -f /usr/share/pixmaps/fedora* 2>/dev/null || true
+systemctl preset-all
+sh /usr/lib/liquid/plymouth.postinst
+# Flathub GPG key is fetched at build time (see .github/workflows/image.yml)
+if [ -n "$FLATHUB_GPG_KEY" ]; then
+  sed -i "s|@FLATHUB_GPG_KEY@|$FLATHUB_GPG_KEY|" /usr/lib/flatpak/remotes.d/flathub.flatpakrepo
+fi
+if [ -n "$LIQUID_UPDATE_URL" ]; then
+  sed -i "s|@LIQUID_UPDATE_URL@|$LIQUID_UPDATE_URL|" /usr/lib/sysupdate.d/*.transfer
+fi

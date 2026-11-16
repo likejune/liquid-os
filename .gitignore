@@ -1,0 +1,7 @@
+/target
+mkosi.output/
+mkosi.cache/
+mkosi.key
+mkosi.crt
+third_party/
+keys/

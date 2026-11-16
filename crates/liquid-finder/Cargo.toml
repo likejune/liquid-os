@@ -1,0 +1,12 @@
+[package]
+name = "liquid-finder"
+description = "Finder: Liquid OS file manager model (1000073177, 1000073171)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+liquid-format = { path = "../liquid-format" }

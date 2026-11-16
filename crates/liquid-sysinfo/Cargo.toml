@@ -1,0 +1,12 @@
+[package]
+name = "liquid-sysinfo"
+description = "Real hardware data for the About window (1000073172)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+liquid-format = { path = "../liquid-format" }

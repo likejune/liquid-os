@@ -1,0 +1,19 @@
+# Kernel image with boot counting: 3 tries, then systemd-boot falls back
+# to the previous version automatically (rollback).
+[Transfer]
+ProtectVersion=%A
+
+[Source]
+Type=url-file
+Path=@LIQUID_UPDATE_URL@
+MatchPattern=liquid-os_@v.efi
+
+[Target]
+Type=regular-file
+Path=/EFI/Linux
+PathRelativeTo=boot
+MatchPattern=liquid-os_@v+@l-@d.efi liquid-os_@v+@l.efi liquid-os_@v.efi
+Mode=0444
+TriesLeft=3
+TriesDone=0
+InstancesMax=2

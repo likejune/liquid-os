@@ -1,0 +1,6 @@
+[Flatpak Repo]
+Title=Flathub
+Url=https://dl.flathub.org/repo/
+Homepage=https://flathub.org/
+Icon=https://dl.flathub.org/repo/logo.svg
+GPGKey=@FLATHUB_GPG_KEY@
