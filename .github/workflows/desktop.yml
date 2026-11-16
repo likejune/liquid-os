@@ -20,7 +20,7 @@ jobs:
           pipewire-devel pulseaudio-libs-devel wayland-devel wayland-protocols-devel
           libdisplay-info-devel pixman-devel expat-devel fontconfig-devel
           freetype-devel pam-devel dbus-devel openssl-devel glib2-devel
-          dav1d-devel gstreamer1-devel gettext intltool desktop-file-utils
+          libdav1d-devel gstreamer1-devel gettext intltool desktop-file-utils
           open-sans-fonts
       - uses: actions/checkout@v4
       - run: bash scripts/build-desktop.sh
