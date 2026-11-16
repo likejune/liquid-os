@@ -1,6 +1,8 @@
 /target
 mkosi.output/
 mkosi.cache/
+mkosi.packages/
+.kernel-build/
 mkosi.key
 mkosi.crt
 third_party/
