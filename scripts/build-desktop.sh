@@ -6,6 +6,11 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DEST="$ROOT/mkosi.extra"
 bash "$ROOT/scripts/fetch-upstream.sh"
 for dir in "$ROOT"/third_party/*/; do
+  if [ -f "$dir/Cargo.toml" ]; then
+    (cd "$dir" && cargo metadata --no-deps --format-version 1 >/dev/null)
+  fi
+done
+for dir in "$ROOT"/third_party/*/; do
   name=$(basename "$dir")
   echo ">> building $name"
   if [ -f "$dir/justfile" ]; then

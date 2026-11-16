@@ -20,4 +20,7 @@ grep -v '^#' "$ROOT/upstream.lock" | while read -r repo tag sha; do
     git -C "$dir" apply --check "$p" && git -C "$dir" apply "$p"
     echo ">> $name: applied $(basename "$p")"
   done
+  if [ -f "$dir/Cargo.toml" ] && ! grep -q '^\[workspace\]' "$dir/Cargo.toml"; then
+    printf '\n[workspace]\n' >> "$dir/Cargo.toml"
+  fi
 done
