@@ -1,28 +1,59 @@
 name: image
 on:
   workflow_dispatch:
+    inputs:
+      kernel_run_id:
+        description: Existing successful kernel run to reuse instead of rebuilding
+        required: false
+      desktop_run_id:
+        description: Existing successful desktop run to reuse instead of rebuilding
+        required: false
   push:
     tags: ['v*']
 jobs:
   kernel:
+    if: github.event_name != 'workflow_dispatch' || inputs.kernel_run_id == ''
     uses: ./.github/workflows/kernel.yml
   desktop:
+    if: github.event_name != 'workflow_dispatch' || inputs.desktop_run_id == ''
     uses: ./.github/workflows/desktop.yml
   build:
+    if: >-
+      always() &&
+      (needs.kernel.result == 'success' || needs.kernel.result == 'skipped') &&
+      (needs.desktop.result == 'success' || needs.desktop.result == 'skipped')
     needs: [kernel, desktop]
     runs-on: ubuntu-24.04
     timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
       - name: Download Liquid kernel
+        if: github.event_name != 'workflow_dispatch' || inputs.kernel_run_id == ''
         uses: actions/download-artifact@v4
         with:
           name: liquid-kernel
           path: mkosi.packages
+      - name: Download kernel from existing run
+        if: github.event_name == 'workflow_dispatch' && inputs.kernel_run_id != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: liquid-kernel
+          run-id: ${{ inputs.kernel_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: mkosi.packages
       - name: Download Liquid desktop
+        if: github.event_name != 'workflow_dispatch' || inputs.desktop_run_id == ''
         uses: actions/download-artifact@v4
         with:
           name: liquid-desktop
+          path: mkosi.extra/usr
+      - name: Download desktop from existing run
+        if: github.event_name == 'workflow_dispatch' && inputs.desktop_run_id != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: liquid-desktop
+          run-id: ${{ inputs.desktop_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           path: mkosi.extra/usr
       - uses: systemd/mkosi@v25.3
       - name: Free disk space
