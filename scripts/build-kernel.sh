@@ -28,7 +28,25 @@ cd "$DIST"
 fedpkg sources
 dnf -y builddep kernel.spec
 
-rpmbuild -bb \n  --with baseonly \n  --without debuginfo \n  --without doc \n  --without headers \n  --without cross_headers \n  --without kmap \n  --without kernel_abi_stablelists \n  --without kabidupchk \n  --without kabidwchk \n  --define "buildid .liquid" \n  --define "_sourcedir $DIST" \n  --define "_specdir $DIST" \n  --define "_builddir $WORK/build" \n  --define "_buildrootdir $WORK/buildroot" \n  --define "_rpmdir $WORK/rpms" \n  --define "_srcrpmdir $WORK/srpms" \n  --define "_tmppath $WORK/tmp" \n  kernel.spec
+rpmbuild -bb \
+  --with baseonly \
+  --without debuginfo \
+  --without doc \
+  --without headers \
+  --without cross_headers \
+  --without kmap \
+  --without kernel_abi_stablelists \
+  --without kabidupchk \
+  --without kabidwchk \
+  --define "buildid .liquid" \
+  --define "_sourcedir $DIST" \
+  --define "_specdir $DIST" \
+  --define "_builddir $WORK/build" \
+  --define "_buildrootdir $WORK/buildroot" \
+  --define "_rpmdir $WORK/rpms" \
+  --define "_srcrpmdir $WORK/srpms" \
+  --define "_tmppath $WORK/tmp" \
+  kernel.spec
 
 shopt -s nullglob
 for name in kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra; do
@@ -41,6 +59,5 @@ for name in kernel kernel-core kernel-modules kernel-modules-core kernel-modules
 done
 
 for package in "$OUT"/*.rpm; do
-  rpm -qp --queryformat "%{NAME} %{VERSION}-%{RELEASE} %{ARCH}
-" "$package"
+  rpm -qp --queryformat "%{NAME} %{VERSION}-%{RELEASE} %{ARCH}\n" "$package"
 done
