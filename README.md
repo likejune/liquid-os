@@ -24,7 +24,7 @@ mkosi.extra/            файлы системы: слот B, раздел да
 upstream.lock           закреплённые версии готовых компонентов рабочего стола (COSMIC), см. docs/DESKTOP-BASE.md
 patches/                патчи Liquid к ним
 kernel/                 конфигурация и патчи ядра Liquid
-.github/workflows/      ci.yml (Rust), image.yml (сборка образа + тест в QEMU)
+.github/workflows/      ci.yml (Rust), kernel.yml (RPM ядра), desktop.yml (COSMIC), image.yml (образ + QEMU)
 ```
 
 ## Сборка
@@ -34,12 +34,14 @@ kernel/                 конфигурация и патчи ядра Liquid
 cargo test --workspace
 ```
 
-Образ системы (нужен Linux и mkosi 25+):
+Образ системы (нужен Linux, mkosi 25+ и зависимости из workflows):
 ```bash
+bash scripts/build-kernel.sh
+bash scripts/build-desktop.sh
 mkosi -f build
-mkosi qemu
+bash scripts/test-image.sh
 ```
-Или запустить workflow **image** в GitHub Actions вручную.
+Или запустить workflow **image** в GitHub Actions вручную. Он последовательно собирает Liquid kernel и рабочий стол, добавляет их в системный образ и проверяет загрузку в QEMU.
 
 ## Лицензия
 

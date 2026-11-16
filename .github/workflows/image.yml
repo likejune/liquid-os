@@ -42,5 +42,11 @@ jobs:
           path: |
             mkosi.output/*.raw
             mkosi.output/*.efi
-            boot.log
+          if-no-files-found: warn
+      - name: Upload boot log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: liquid-os-boot-log
+          path: boot.log
           if-no-files-found: warn
