@@ -4,14 +4,24 @@ name: desktop
 on:
   workflow_dispatch:
   push:
-    paths: ['upstream.lock', 'patches/**', 'scripts/*desktop*', 'scripts/fetch-upstream.sh']
+    paths: ['upstream.lock', 'patches/**', 'scripts/*desktop*', 'scripts/fetch-upstream.sh', '.github/workflows/desktop.yml']
 jobs:
   build:
     runs-on: ubuntu-24.04
     container: registry.fedoraproject.org/fedora:44
     timeout-minutes: 180
     steps:
-      - run: dnf -y install git rust cargo just clang mesa-libgbm-devel libinput-devel libxkbcommon-devel systemd-devel libseat-devel pipewire-devel pulseaudio-libs-devel wayland-devel libdisplay-info-devel pixman-devel expat-devel fontconfig-devel freetype-devel pam-devel dbus-devel openssl-devel gettext
+      - name: Install build dependencies
+        run: >-
+          dnf -y install
+          git rust cargo just clang clang-devel cmake lld mold nasm pkgconf-pkg-config
+          mesa-libgbm-devel mesa-libEGL-devel libdrm-devel libinput-devel
+          libxkbcommon-devel libxcb-devel systemd-devel libseat-devel
+          pipewire-devel pulseaudio-libs-devel wayland-devel wayland-protocols-devel
+          libdisplay-info-devel pixman-devel expat-devel fontconfig-devel
+          freetype-devel pam-devel dbus-devel openssl-devel glib2-devel
+          dav1d-devel gstreamer1-devel gettext intltool desktop-file-utils
+          open-sans-fonts
       - uses: actions/checkout@v4
       - run: bash scripts/build-desktop.sh
       - uses: actions/upload-artifact@v4
