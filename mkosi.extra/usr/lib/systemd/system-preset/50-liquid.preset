@@ -1,3 +1,4 @@
+disable systemd-repart.service
 enable NetworkManager.service
 enable bluetooth.service
 enable systemd-resolved.service

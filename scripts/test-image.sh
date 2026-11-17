@@ -10,7 +10,7 @@ timeout 180 mkosi qemu -- -nographic < /dev/null 2>&1 | tee boot.log
 qemu_status=${PIPESTATUS[0]}
 set -e
 
-if grep -Eiq 'Kernel panic|VFS: Unable to mount root' boot.log; then
+if grep -Eiq 'Kernel panic|VFS: Unable to mount root|Failed to start systemd-repart.service' boot.log; then
   echo "Liquid OS failed during kernel boot" >&2
   exit 1
 fi
