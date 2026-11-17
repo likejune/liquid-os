@@ -55,6 +55,9 @@ jobs:
           run-id: ${{ inputs.desktop_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: mkosi.extra/usr
+      - name: Restore executable permissions
+        run: |
+          find mkosi.extra/usr/bin mkosi.extra/usr/sbin -type f -exec chmod +x {} + 2>/dev/null || true
       - uses: systemd/mkosi@v25.3
       - name: Free disk space
         run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
