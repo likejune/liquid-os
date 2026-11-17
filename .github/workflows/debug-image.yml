@@ -23,4 +23,4 @@ jobs:
           trap 'sudo systemd-dissect --umount /tmp/liquid-root || true' EXIT
           sudo systemd-dissect --mount "$image" /tmp/liquid-root
           sudo ls -l /tmp/liquid-root/sbin/init /tmp/liquid-root/usr/lib/systemd/systemd
-          sudo systemd-repart --definitions=/tmp/liquid-root/usr/lib/repart.d --dry-run "$image"
+          sudo systemd-repart --definitions=/tmp/liquid-root/usr/lib/repart.d --dry-run=yes "$image"
