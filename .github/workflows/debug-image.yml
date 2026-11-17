@@ -1,10 +1,7 @@
 name: debug-image
 on:
-  workflow_dispatch:
-    inputs:
-      run_id:
-        description: Image workflow run to inspect
-        required: true
+  push:
+    branches: [fix/full-build]
 jobs:
   inspect:
     runs-on: ubuntu-24.04
@@ -13,7 +10,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: liquid-os-image
-          run-id: ${{ inputs.run_id }}
+          run-id: 43992311330
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: mkosi.output
       - name: Inspect mounted root
