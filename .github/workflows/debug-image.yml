@@ -1,0 +1,32 @@
+name: debug-image
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Image workflow run to inspect
+        required: true
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: liquid-os-image
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: mkosi.output
+      - name: Inspect mounted root
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y systemd-container btrfs-progs
+          image=$(find mkosi.output -name '*_0.9.1.raw' -print -quit)
+          mkdir -p /tmp/liquid-root
+          trap 'sudo systemd-dissect --umount /tmp/liquid-root || true' EXIT
+          sudo systemd-dissect --mount "$image" /tmp/liquid-root
+          sudo find /tmp/liquid-root -maxdepth 1 -printf '%M %p -> %l\n'
+          sudo ls -ld /tmp/liquid-root/usr /tmp/liquid-root/sbin /tmp/liquid-root/bin
+          sudo ls -l /tmp/liquid-root/sbin/init /tmp/liquid-root/usr/lib/systemd/systemd /tmp/liquid-root/etc/os-release
+          sudo readlink -f /tmp/liquid-root/sbin/init
+          sudo cat /tmp/liquid-root/usr/lib/os-release
