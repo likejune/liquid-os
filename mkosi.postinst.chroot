@@ -4,8 +4,6 @@ set -e
 # Brand: remove distribution branding from the user-visible system.
 rm -f /usr/share/pixmaps/fedora* 2>/dev/null || true
 systemctl preset-all
-# Every partition is already present in the development image.
-systemctl mask systemd-repart.service systemd-repart.socket
 sh /usr/lib/liquid/plymouth.postinst
 # Flathub GPG key is fetched at build time (see .github/workflows/image.yml)
 if [ -n "$FLATHUB_GPG_KEY" ]; then
