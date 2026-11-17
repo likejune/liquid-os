@@ -24,6 +24,8 @@ jobs:
           sudo systemd-dissect --mount "$image" /tmp/liquid-root
           sudo find /tmp/liquid-root -maxdepth 1 -printf '%M %p -> %l\n'
           sudo ls -ld /tmp/liquid-root/usr /tmp/liquid-root/sbin /tmp/liquid-root/bin
-          sudo ls -l /tmp/liquid-root/sbin/init /tmp/liquid-root/usr/lib/systemd/systemd /tmp/liquid-root/etc/os-release
-          sudo readlink -f /tmp/liquid-root/sbin/init
-          sudo cat /tmp/liquid-root/usr/lib/os-release
+          sudo find /tmp/liquid-root/usr -maxdepth 3 -printf '%M %p -> %l\n'
+          sudo ls -l /tmp/liquid-root/usr/usr/lib/systemd/systemd || true
+          sudo ls -l /tmp/liquid-root/sbin/init /tmp/liquid-root/usr/lib/systemd/systemd /tmp/liquid-root/etc/os-release || true
+          sudo readlink -f /tmp/liquid-root/sbin/init || true
+          sudo cat /tmp/liquid-root/usr/lib/os-release || true
